@@ -119,3 +119,12 @@
     flex-direction: column;
   }
 }
+
+
+.Header {
+  width: 100%;
+  height: 3rem;
+  background-color: #9ECEE6;
+  text-align: center;
+  padding-top: 20px;
+}
