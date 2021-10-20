@@ -3,7 +3,7 @@ import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
 import Layout from './components/Layout'
 
-export default function id() {
+export default function Id() {
 
     const router = useRouter()
 
