@@ -6,7 +6,7 @@ import Layout from './components/Layout'
 
 import usegetData from "../configs/firestore" 
 
-const main = () => {
+const Main = () => {
     const [ getData, data, setData ] = usegetData()
     
     useEffect(() => {
@@ -27,8 +27,8 @@ const main = () => {
             <Layout>
                 {data?.map((item)=>{
                     return (
-                        <div className='text-center'>
-                            <p>{`data: ${item.time}`}</p>
+                        <div key ={item.time} className='text-center'>
+                            <p>{`time: ${item.time}`}</p>
                             <p>{`units: ${item.units}`}</p>
                             <hr/>
                         </div>
@@ -41,4 +41,4 @@ const main = () => {
     )
 }
 
-export default main
+export default Main
