@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import { firestore, collection, getDocs } from "./firebase";
+import { firestore, collection, getDocs, query, orderBy } from "./firebase";
 
 const usegetData = () => {
 
     const [ data, setData ] = useState([])
 
     async function getData() {
-        const collectionFirestore = collection(firestore, 'electricity_units');
+        const collectionFirestore = query(collection(firestore, 'electricity_units'),orderBy("time", "desc"));
             // console.log('collectionFirestore', collectionFirestore)
         const docsFirestore = await getDocs(collectionFirestore);
             // console.log('docsFirestore', docsFirestore)

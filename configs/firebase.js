@@ -1,12 +1,10 @@
 
 
 import { initializeApp, getApps } from "firebase/app"
-import { getFirestore, collection, getDocs  } from "firebase/firestore"
+import { getFirestore, collection, doc, getDocs, addDoc, setDoc, updateDoc, query, orderBy } from "firebase/firestore"
 import { getAuth } from "firebase/auth"
 
-// const dotenv = require('dotenv');
-// dotenv.config();
-console.log(process.env)
+// console.log(process.env)
 
 
 const clientCredentials = {
@@ -22,4 +20,4 @@ const app = initializeApp(clientCredentials)
 const firestore = getFirestore(app)
 const auth = getAuth(app)
 
-export {firestore, auth, collection, getDocs }
+export {firestore, auth, collection, doc, getDocs, addDoc, setDoc, updateDoc, query, orderBy }
