@@ -146,7 +146,7 @@ const Main = () => {
 
                     {/* <label>net</label><br/> */} <br/>
                     <InputNumber
-                        style={{marginBottom: "10%"}}
+                        style={{height: "50px"}}
                      
                         defaultValue={0}  
                         step="0.01"
