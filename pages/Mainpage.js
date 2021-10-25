@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Layout from './components/Layout'
 import moment from 'moment';
-import { DatePicker, Space, InputNumber, Button, Table} from 'antd';
+import { DatePicker, Space, InputNumber, Button, Table, Input} from 'antd';
 import _ from 'lodash';
 
 
@@ -12,7 +12,7 @@ import usegetData from "../configs/firestore"
 const Main = () => {
     const [ getData, data, setData ] = usegetData()
 
-    const [ value, setValue ] = useState({
+    const [ valueData, setValueData ] = useState({
         period: null,
         time: null,
         units: null
@@ -50,13 +50,13 @@ const Main = () => {
     }, [])
 
     useEffect(() => {
-        console.log(value);
-    }, [value])
+        console.log(valueData);
+    }, [valueData])
 
     console.log('got data', data)
 
     function onChange(dateString) {
-        // console.log('Selected Time: ', value);
+        // console.log('Selected Time: ', valueData);
         console.log('Formatted Selected Time: ', dateString);
         console.log('setTime(dateString)', setTime(dateString))
 
@@ -78,15 +78,15 @@ const Main = () => {
         combine = `${date}_${month}_${year}_${period}`
         console.log('combine', combine)
 
-        setValue({
-            ...value,
+        setValueData({
+            ...valueData,
             time: time,
             period: combine
         })
       }
       
-      function onOk(value, dateString) {
-        // console.log('onOk: ', value);
+      function onOk(valueData, dateString) {
+        // console.log('onOk: ', valueData);
         // console.log('Formatted Selected Time: ', dateString);
 
       }
@@ -94,7 +94,7 @@ const Main = () => {
   
     const addUnitsHandler = async () => {
         try {
-            const docRef = await addDoc(collection(firestore, "electricity_units", "10_25_2021_18_12"), value);
+            const docRef = await addDoc(collection(firestore, "electricity_units", "10_25_2021_18_12"), valueData);
             console.log("Document written with ID: ", docRef.id);
           } catch (e) {
             console.error("Error adding document: ", e);
@@ -106,7 +106,7 @@ const Main = () => {
        
 
         try {
-            const docRef = await setDoc(doc(firestore, "electricity_units", value.period), value);
+            const docRef = await setDoc(doc(firestore, "electricity_units", valueData.period), valueData);
               console.log("Document written with ID: ", docRef);
         } catch (e) {
             console.error("Error adding document: ", e);
@@ -117,19 +117,25 @@ const Main = () => {
     const submitHandler = (e) => {
         e.preventDefault()
         console.log("submit");
-        // setValue({
-        //     ...value,
+        // setValueData({
+        //     ...valueData,
         //     time: time
         // })
 
-        // if(!_.isNil(time) && !_.isNil(value.time)){
+        // if(!_.isNil(time) && !_.isNil(valueData.time)){
             setUnitsHandler()
             getData()
+
+            setValueData({
+                period: null,
+                time: null,
+                units: null
+            })
         // }
         
        
 
-        // setValue({})
+        // setValueData({})
 
         //creat object to ready to push
 
@@ -142,17 +148,17 @@ const Main = () => {
         <div>
             <Layout>
                 <form className='text-center' onSubmit={submitHandler}>
-                <DatePicker showTime onChange={onChange} onOk={onOk} style={{marginBottom: "10%"}}/>
+                <DatePicker showTime onChange={onChange} onOk={onOk} />
 
                     {/* <label>net</label><br/> */} <br/>
-                    <InputNumber
-                        style={{height: "50px"}}
+                    <Input
+                        style={{width: "20%"}}
                      
-                        defaultValue={0}  
-                        step="0.01"
-                        // value={value.units}
+                        // defaultValueData={0}  
+                        // step="0.01"
+                        value={valueData.units}
                         required
-                        onChange={(values)=>{ setValue({...value, units: parseFloat(values)})}}
+                        onChange={({ target: { value } })=>{ setValueData({...valueData, units: value})}}
                     />
                     <br/>
                     <Button type="primary" onClick={submitHandler}>Add</Button>
