@@ -1,5 +1,5 @@
 import styles from '../styles/Home.module.css'
-import Main from './Main'
+import Main from './Mainpage'
 
 export default function Home() {
   return (
