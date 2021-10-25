@@ -142,10 +142,11 @@ const Main = () => {
         <div>
             <Layout>
                 <form className='text-center' onSubmit={submitHandler}>
-                <DatePicker showTime onChange={onChange} onOk={onOk} />
+                <DatePicker showTime onChange={onChange} onOk={onOk} style={{marginBottom: "10%"}}/>
 
                     {/* <label>net</label><br/> */} <br/>
                     <InputNumber
+                        style={{marginBottom: "10%"}}
                      
                         defaultValue={0}  
                         step="0.01"
