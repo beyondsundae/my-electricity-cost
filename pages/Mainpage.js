@@ -4,6 +4,11 @@ import moment from 'moment';
 import { DatePicker, Space, InputNumber, Button, Table, Input} from 'antd';
 import _ from 'lodash';
 
+import DateTimePicker from '@material-ui/lab/DateTimePicker';
+import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
+import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
+import TextField from '@mui/material/TextField';
+import Snackbar from '@mui/material/Snackbar';
 
 import { doc, addDoc, collection, firestore, setDoc, updateDoc } from "../configs/firebase";
 
@@ -23,6 +28,54 @@ const Main = () => {
     }
 
     let time ,date, month,year, hour, period, combine
+
+    const [value, setValue] = React.useState(new Date());
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClick = () => {
+      setOpen(true);
+    };
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+
+    const handleChange = (newValue) => {
+        console.log('newValue', newValue)
+
+        time = setTime(newValue)
+        
+        console.log('time', time)
+
+         date = moment(time).format("DD"); 
+         month = moment(time).format("MM"); 
+         year = moment(time).format("YYYY"); 
+         hour = moment(time).format("HH"); 
+
+        if(hour){
+            if(["12", "13", "14", "15", "16", "17", ].includes(hour)){
+                period = '12_18'
+            } else {
+                period = '18_12'
+            }
+        }
+
+        combine = `${date}_${month}_${year}_${period}`
+        console.log('combine', combine)
+
+        setValueData({
+            ...valueData,
+            time: time,
+            period: combine
+        })
+
+
+        setValue(newValue);
+    };
   
 
     const columns = [
@@ -117,29 +170,27 @@ const Main = () => {
     const submitHandler = (e) => {
         e.preventDefault()
         console.log("submit");
-        // setValueData({
-        //     ...valueData,
-        //     time: time
-        // })
+        console.log('valueData', valueData)
 
-        // if(!_.isNil(time) && !_.isNil(valueData.time)){
-            setUnitsHandler()
-            getData()
+        if(_.isNil(valueData.period) || _.isNil(valueData.time) || _.isNil(valueData.units) ){
+            setOpen(true);
 
-            setValueData({
-                period: null,
-                time: null,
-                units: null
-            })
-        // }
-        
+        }else{
+             // if(!_.isNil(time) && !_.isNil(valueData.time)){
+                setUnitsHandler()
+                getData()
+    
+                setValueData({
+                    period: null,
+                    time: null,
+                    units: ""
+                })
+            // }
+            // setValueData({})
+            //creat object to ready to push
+        }
+
        
-
-        // setValueData({})
-
-        //creat object to ready to push
-
-
     }
 
 
@@ -148,10 +199,28 @@ const Main = () => {
         <div>
             <Layout>
                 <form className='text-center' onSubmit={submitHandler}>
-                <DatePicker showTime onChange={onChange} onOk={onOk} />
+                {/* <DatePicker showTime onChange={onChange} onOk={onOk} />  */}
+                 <br/> <br/>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DateTimePicker
+                            label="Date&Time picker"
+                            value={value}
+                            onChange={handleChange}
+                            renderInput={(params) => <TextField {...params} />}
+                            />
+                    </LocalizationProvider>
 
-                    {/* <label>net</label><br/> */} <br/>
-                    <Input
+                    {/* <label>net</label><br/> */} <br/><br/>
+                    <TextField 
+                        
+                        // defaultValueData={0}  
+                        // step="0.01"
+                        value={valueData.units}
+                        required
+                        onChange={({ target: { value } })=>{ setValueData({...valueData, units: value})}}
+                        id="outlined-basic" label="Units" variant="outlined" />
+
+                    {/* <Input
                         style={{width: "20%"}}
                      
                         // defaultValueData={0}  
@@ -159,7 +228,7 @@ const Main = () => {
                         value={valueData.units}
                         required
                         onChange={({ target: { value } })=>{ setValueData({...valueData, units: value})}}
-                    />
+                    /> */}
                     <br/>
                     <Button type="primary" onClick={submitHandler}>Add</Button>
                 </form><hr/>
@@ -181,6 +250,14 @@ const Main = () => {
                 
             </Layout>
             
+            <Snackbar
+            open={open}
+            autoHideDuration={1000}
+            onClose={handleClose}
+            message="Fill all"
+            // action={action}
+          />
+
         </div>
     )
 }
