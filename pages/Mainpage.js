@@ -20,7 +20,8 @@ const Main = () => {
     const [ valueData, setValueData ] = useState({
         period: null,
         time: null,
-        units: null
+        units: null,
+        description: null
     })
 
     let setTime = (timeInput) => {
@@ -95,7 +96,11 @@ const Main = () => {
           dataIndex: 'units',
           key: 'units',
         },
-
+        {
+            title: 'description',
+            dataIndex: 'description',
+            key: 'description',
+          },
     ]
     
     useEffect(() => {
@@ -155,9 +160,6 @@ const Main = () => {
     }
 
     const setUnitsHandler = async () => {
-
-       
-
         try {
             const docRef = await setDoc(doc(firestore, "electricity_units", valueData.period), valueData);
               console.log("Document written with ID: ", docRef);
@@ -183,17 +185,14 @@ const Main = () => {
                 setValueData({
                     period: null,
                     time: null,
-                    units: ""
+                    units: "",
+                    description: ""
                 })
             // }
             // setValueData({})
             //creat object to ready to push
         }
-
-       
     }
-
-
 
     return (
         <div>
@@ -209,9 +208,8 @@ const Main = () => {
                             onChange={handleChange}
                             renderInput={(params) => <TextField {...params} />}
                             />
-                    </LocalizationProvider>
+                    </LocalizationProvider> <br/><br/>
 
-                    {/* <label>net</label><br/> */} <br/><br/>
                     <TextField 
                         
                         // defaultValueData={0}  
@@ -219,17 +217,17 @@ const Main = () => {
                         value={valueData.units}
                         required
                         onChange={({ target: { value } })=>{ setValueData({...valueData, units: value})}}
-                        id="outlined-basic" label="Units" variant="outlined" />
+                        id="outlined-basic" label="Units" variant="outlined" /> <br/><br/>
 
-                    {/* <Input
-                        style={{width: "20%"}}
-                     
+                    <TextField 
+                        
                         // defaultValueData={0}  
                         // step="0.01"
-                        value={valueData.units}
+                        value={valueData.description}
                         required
-                        onChange={({ target: { value } })=>{ setValueData({...valueData, units: value})}}
-                    /> */}
+                        onChange={({ target: { value } })=>{ setValueData({...valueData, description: value})}}
+                        id="outlined-basic" label="Description" variant="outlined" />
+
                     <br/>
                     <Button type="primary" onClick={submitHandler}>Add</Button>
                 </form><hr/>
@@ -246,9 +244,6 @@ const Main = () => {
                 })} */}
 
                 <Table columns={columns} dataSource={data} />
-
-                
-                
             </Layout>
             
             <Snackbar
@@ -256,9 +251,7 @@ const Main = () => {
             autoHideDuration={1000}
             onClose={handleClose}
             message="Fill all"
-            // action={action}
           />
-
         </div>
     )
 }
