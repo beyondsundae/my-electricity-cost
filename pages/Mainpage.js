@@ -204,6 +204,7 @@ const Main = () => {
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             label="Date&Time picker"
+                            ampm={false}
                             value={value}
                             onChange={handleChange}
                             renderInput={(params) => <TextField {...params} />}
