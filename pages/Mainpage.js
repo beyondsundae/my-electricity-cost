@@ -59,9 +59,9 @@ const Main = () => {
 
         if(hour){
             if(["12", "13", "14", "15", "16", "17", ].includes(hour)){
-                period = '12_18'
+                period = `evening -> noon`
             } else {
-                period = '18_12'
+                period = 'noon -> evening'
             }
         }
 
@@ -237,13 +237,15 @@ const Main = () => {
                         <div key ={item.time} className='text-center'>
                             <p>{`time: ${item.time}`}</p>
                             <p>{`units: ${item.units}`}</p>
+                            <p>{`description: ${item.description}`}</p>
+                            <p>{`period: ${item.period}`}</p>
                             <hr/>
                             
                         </div>
                     )
                 })} */}
 
-                <Table columns={columns} dataSource={data} />
+                {/* <Table columns={columns} dataSource={data} /> */}
             </Layout>
             
             <Snackbar
