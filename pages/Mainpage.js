@@ -245,7 +245,7 @@ const Main = () => {
                     )
                 })} */}
 
-                {/* <Table columns={columns} dataSource={data} /> */}
+                <Table columns={columns} dataSource={data} />
             </Layout>
             
             <Snackbar
