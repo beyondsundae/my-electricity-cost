@@ -1,34 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# my-electricity-cost
+## Introduction
+This project I just want to build some wep that can memo my-electricity-cost on each day and I just want to test new firebase tools and deploying Next.js with vercel
 
-## Getting Started
+โปรเจตนี้ผมต้องการสร้างเว็บที่บันทึกค่าไฟในเเต่ละวันในช่วงที่อยู่หอ โดยเเค่ระบุวันเวลากับหน่วยค่าไฟ ณ เวลานั้น เเละคำอธิบายสั้นๆ เช่น เปิดเเอร์เบา-แรง โดย ช่วงเวลาจะเเบ่งเป็น หลังเที่ยง-เย็น เเละ เย็นถึงเที่ยงวันถัดไป เพื่อในการตรวจสอบว่า ช่วงกลางวันกับกลางคืน ช่วงไหนใช้ไฟเยอะกว่ากัน 
 
-First, run the development server:
+## Attached
+![Screenshot 2022-03-11 023722](https://user-images.githubusercontent.com/59742129/157742737-af60c040-7e07-4986-92e8-73d4693499f0.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## About
