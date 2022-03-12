@@ -3,7 +3,6 @@ import Layout from './components/Layout'
 import moment from 'moment';
 import { DatePicker, Space, InputNumber, Button, Table, Input} from 'antd';
 import _, { isNil } from 'lodash';
-import load from './components/gif/loading.gif'
 
 import DateTimePicker from '@material-ui/lab/DateTimePicker';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
