@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Layout from './components/Layout'
 import moment from 'moment';
 import { DatePicker, Space, InputNumber, Button, Table, Input} from 'antd';
-import _ from 'lodash';
+import _, { isNil } from 'lodash';
+import load from './components/gif/loading.gif'
 
 import DateTimePicker from '@material-ui/lab/DateTimePicker';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
@@ -59,9 +60,9 @@ const Main = () => {
 
         if(hour){
             if(["12", "13", "14", "15", "16", "17", ].includes(hour)){
-                period = `evening -> noon`
-            } else {
                 period = 'noon -> evening'
+            } else {
+                period = 'last_evening -> noon'
             }
         }
 
@@ -97,6 +98,11 @@ const Main = () => {
           key: 'units',
         },
         {
+            title: 'diff',
+            dataIndex: 'diff',
+            key: 'diff',
+          },
+        {
             title: 'description',
             dataIndex: 'description',
             key: 'description',
@@ -112,6 +118,33 @@ const Main = () => {
     }, [valueData])
 
     console.log('got data', data)
+
+    
+    if(data){
+        for(let i in data){
+            let previndex = parseInt(i)+1
+            if(!isNil(data[previndex])){
+
+                let sum = data[i].units - data[previndex].units
+    
+                // console.log(  `item >>>>> ${i} - ${previndex} >>>> ${data[i].units} - ${data[previndex].units}, ${sum?.toFixed(2)}}`)
+
+                data[i].diff = sum? sum?.toFixed(2) : 'no  data'
+
+            }else{
+                // console.log('data[previndex] >>>> error', data[previndex])
+
+            }
+
+            if(data[i].time ){
+                data[i].time = moment(data[i].time).format('lll')
+            }
+
+           
+        }
+
+        console.log('final data', data)
+    }
 
     function onChange(dateString) {
         // console.log('Selected Time: ', valueData);
@@ -230,6 +263,9 @@ const Main = () => {
 
                     <br/>
                     <Button type="primary" onClick={submitHandler}>Add</Button>
+
+                    <br/>
+                   {" ช่วงก่อน -> ช่วงบันทึก"}
                 </form><hr/>
 
                 {/* {data?.map((item)=>{
@@ -245,7 +281,14 @@ const Main = () => {
                     )
                 })} */}
 
-                <Table columns={columns} dataSource={data} />
+                { data.length > 1 ? <Table columns={columns} dataSource={data} /> :  ( <div style={{ textAlign: "center"}}>
+                    <img 
+                            src='https://cdn.dribbble.com/users/15879/screenshots/2163682/lightning.gif' 
+                            alt="loading..."
+                        
+                            />
+                </div>)}
+                
             </Layout>
             
             <Snackbar
