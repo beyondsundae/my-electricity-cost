@@ -4,7 +4,7 @@ import Header from './Header'
 
 const Layout = (props) => {
     return (
-        <div class='bg-main'>
+        <div className='bg-main'>
               {/* <Header/> */}
               <div>
                 {props.children}
